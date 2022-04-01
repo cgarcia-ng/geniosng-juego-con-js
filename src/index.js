@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import logoImg from './assets/logo.png';
+import playerImg from './assets/players/robot_blue.png'
 
 class MyGame extends Phaser.Scene
 {
@@ -10,29 +10,35 @@ class MyGame extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('logo', logoImg);
+        this.load.spritesheet('player', playerImg, { frameWidth: 114, frameHeight: 114 });
     }
-      
+
     create ()
     {
-        const logo = this.add.image(400, 150, 'logo');
-      
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
-        });
+        this.player = this.add.sprite(100, 320, 'player');
+        this.keys = this.input.keyboard.createCursosrKeys();
+    }
+
+    update ()
+    {
+        if (this.keys.up.isDown)
+        {
+            this.player.y -= 4;
+            this.player.setFrame(0);
+        }
+        else
+        {
+            this.player.y += 4;
+            this.player.setFrame(1);
+        }
     }
 }
 
 const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    width: 800,
-    height: 600,
+    width: 960,
+    height: 640,
     scene: MyGame
 };
 
