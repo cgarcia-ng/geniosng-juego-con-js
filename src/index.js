@@ -1,7 +1,10 @@
 import Phaser from 'phaser';
-import playerImg from './assets/players/robot_blue.png'
+// import playerImg from './assets/players/robot_blue.png'
 
-class MyGame extends Phaser.Scene
+import { Scene1 } from './scenes/scene1.js';
+import { Scene2 } from './scenes/scene2.js';
+
+/* class MyGame extends Phaser.Scene
 {
     constructor ()
     {
@@ -32,14 +35,14 @@ class MyGame extends Phaser.Scene
             this.player.setFrame(1);
         }
     }
-}
+} */
 
 const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 960,
     height: 640,
-    scene: MyGame
+    scene: [Scene1, Scene2]
 };
 
 const game = new Phaser.Game(config);
