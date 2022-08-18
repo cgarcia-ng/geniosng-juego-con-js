@@ -5,6 +5,8 @@ import batImg from '../assets/enemies/bat.png';
 import chomperImg from '../assets/enemies/chomper.png';
 import playerImg from '../assets/players/robot_blue.png';
 import zombieImg from '../assets/enemies/zombie.png';
+import fontTexture from '../assets/fonts/font5.png';
+import fontDataXml from '../assets/fonts/font5.xml';
 
 export class Scene1 extends Phaser.Scene {
   constructor() {
@@ -13,6 +15,7 @@ export class Scene1 extends Phaser.Scene {
 
   preload() {
     this.load.image('bg', backgroundImg);
+    this.load.bitmapFont('font', fontTexture, fontDataXml);
 
     // Loads enemy spritesheet
     this.load.spritesheet(

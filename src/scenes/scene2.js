@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 
-import { Enemy, moveEnemy } from '../enemy.js';
+import { Enemy, moveEnemy, resetEnemyPosition } from '../scripts/enemy.js';
+import { spawnEnemy } from '../scripts/utils.js';
 
 export class Scene2 extends Phaser.Scene {
   constructor() {
@@ -11,20 +12,26 @@ export class Scene2 extends Phaser.Scene {
     this.background = this.add.tileSprite(0, 0, this.width, this.height, 'bg');
     this.background.setOrigin(0, 0);
 
-    // Add enemy to the scene
     const width = this.background.width;
     const height = this.background.height;
 
-    this.enemy1 = new Enemy(
-      this,
-      width + Phaser.Math.Between(0, 500),
-      Phaser.Math.Between(0, height),
-      'enemy1',
-      'anim1'
+    // Add font to the scene
+    this.gameOverText = this.add.bitmapText(
+      width / 2,
+      height / 2,
+      'font',
+      'Game Over\nClick here to Start Again'
     );
 
-    this.enemy2 = new Enemy(this, width + Phaser.Math.Between(0, 500), Phaser.Math.Between(0, height), 'enemy2', 'anim2');
-    this.enemy3 = new Enemy(this, width + Phaser.Math.Between(0, 500), Phaser.Math.Between(0, height), 'enemy3', 'anim3');
+    this.gameOverText.visible = true;
+    this.gameOverText.setCenterAlign();
+    this.gameOverText.setOrigin(0.5, 0.5);
+    this.gameOverText.setFontSize(40);
+
+    // Add enemy to the scene
+    this.enemy1 = spawnEnemy(this, 'enemy1', 'anim1');
+    this.enemy2 = spawnEnemy(this, 'enemy2', 'anim2');
+    this.enemy3 = spawnEnemy(this, 'enemy3', 'anim3');
 
     // Add player to scene
     this.player = this.physics.add.sprite(100, 300, 'player');
@@ -66,14 +73,8 @@ export class Scene2 extends Phaser.Scene {
     }
   }
 
-  resetEnemyPosition(enemy) {
-    enemy.x = this.background.width;
-    var randomY = Phaser.Math.Between(0, this.background.height);
-    enemy.y = randomY;
-  }
-
   hurtPlayer(player, enemy) {
-    this.resetEnemyPosition(enemy);
+    resetEnemyPosition(this, enemy);
     player.x = 100;
     player.y = 300;
   }
