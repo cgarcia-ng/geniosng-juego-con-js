@@ -52,13 +52,17 @@ export class Scene2 extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.enemies, this.hurtPlayer, null, this);
 
+    this.enemySpeed1 = Phaser.Math.Between(4, 10);
+    this.enemySpeed2 = Phaser.Math.Between(4, 10);
+    this.enemySpeed3 = Phaser.Math.Between(4, 10);
+
   }
 
   update() {
     this.background.tilePositionX += 1;
-    moveEnemy(this, this.enemy1, Phaser.Math.Between(4, 10));
-    moveEnemy(this, this.enemy2, Phaser.Math.Between(4, 10));
-    moveEnemy(this, this.enemy3, Phaser.Math.Between(4, 10));
+    this.enemy1.moveEnemy(this.enemySpeed1);
+    this.enemy2.moveEnemy(this.enemySpeed2);
+    this.enemy3.moveEnemy(this.enemySpeed3);
     this.movePlayerManager();
   }
 
@@ -74,7 +78,7 @@ export class Scene2 extends Phaser.Scene {
   }
 
   hurtPlayer(player, enemy) {
-    resetEnemyPosition(this, enemy);
+    enemy.resetEnemyPosition();
     player.x = 100;
     player.y = 300;
   }
