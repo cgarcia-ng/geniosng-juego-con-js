@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-import { Enemy, moveEnemy, resetEnemyPosition } from '../scripts/enemy.js';
+import { Player } from '../scripts/player.js';
 import { spawnEnemy } from '../scripts/utils.js';
 
 export class Scene2 extends Phaser.Scene {
@@ -34,8 +34,7 @@ export class Scene2 extends Phaser.Scene {
     this.enemy3 = spawnEnemy(this, 'enemy3', 'anim3');
 
     // Add player to scene
-    this.player = this.physics.add.sprite(100, 300, 'player');
-    this.player.setCollideWorldBounds(true);
+    this.player = new Player(this, 100, 300);
 
     // Map keyboard keys
     this.cursorKeys = this.input.keyboard.createCursorKeys();
