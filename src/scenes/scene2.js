@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 import { Player } from '../scripts/player.js';
-import { spawnEnemy } from '../scripts/utils.js';
+import { gameOver, spawnEnemy } from '../scripts/utils.js';
 
 export class Scene2 extends Phaser.Scene {
   constructor() {
@@ -23,10 +23,13 @@ export class Scene2 extends Phaser.Scene {
       'Game Over\nClick here to Start Again'
     );
 
-    this.gameOverText.visible = true;
+    this.gameOverText.visible = false;
     this.gameOverText.setCenterAlign();
     this.gameOverText.setOrigin(0.5, 0.5);
     this.gameOverText.setFontSize(40);
+
+    // Add gameover variables
+    this.gameIsOver = false;
 
     // Add enemy to the scene
     this.enemy1 = spawnEnemy(this, 'enemy1', 'anim1');
@@ -77,9 +80,10 @@ export class Scene2 extends Phaser.Scene {
   }
 
   hurtPlayer(player, enemy) {
-    enemy.resetEnemyPosition();
-    player.x = 100;
-    player.y = 300;
+    gameOver(this);
+    // enemy.resetEnemyPosition();
+    // player.x = 100;
+    // player.y = 300;
   }
 
 }
